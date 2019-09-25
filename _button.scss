@@ -1,0 +1,151 @@
+.btn {
+    &,
+    &:link,
+    &:visited {
+        text-transform: uppercase;
+        text-decoration: none;
+        padding: 1.5rem 4rem;
+        display: inline-block;
+        border-radius: 10rem;
+        transition: all .2s;
+        position: relative;
+        font-size: $default-font-size;
+
+        // Change for tha <button> element
+        border: none;
+        cursor: pointer;
+
+        
+        /*TRANSITION property always has to be in the initial state т.е. видимо не там где ховер, а в начальной информации по кнопке*/
+    
+        /*когда нам надо добавить padding и тп нужно поменять дисплей на инлайн-блок (он воспринимается как текст)
+         (изначально он был задан инлайн)
+         для того чтоб кнопка отцентровалась, в text-box мы поясняем text align - center. */
+    }
+    
+    &--white {
+        background-color: $color-white;
+        color: $color-grey-dark;
+
+        &::after{
+            background-color: $color-white;
+        }
+    }
+
+    &--green {
+        background-color: $color-primary;
+        color: $color-white;
+
+        &::after{
+            background-color: $color-primary;
+        }
+    }
+    
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 1rem 2rem rgba($color-black, 0.2);
+    /* 
+    0 - now shadow in X direction
+    10 - shadow in Y direction
+    20 - blur (high)
+    we need transparent - so we use rgba black with 0.2 (20%) opacity 
+    */
+        &::after {
+        transform: scaleX(1.4) scaleY(1.6);
+        opacity: 0;
+    }
+    
+    /*when we hover button after effect starts. Scales the element an makes it N times bigger
+    Т.к. у нас не совсем симметрично при обычно scale, сделаем его отдельно по осям X Y
+    Чтоб что-то fade away нам нужно указать opacity 0 (при hover)
+    Transition property д.б. в Initial state. а им для нас является btn::after
+    значит туда и пишем.
+    */
+    }
+    
+    
+    &:active,
+    &:focus {
+        outline: none;
+        transform: translateY(-1px);
+        box-shadow: 0 .5rem 1rem rgba($color-black, 0.2);
+    }
+    
+    &::after {
+        content: "";
+        display: inline-block;
+        height: 100%;
+        width: 100%;
+        border-radius: 100px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        transition: all .4s;
+        /*inline-block потому что сама наша кнопка тоже. 
+        это является Child-element поэтому высота и ширина 100% - значит 100% от нашей кнопки*/
+    }
+    
+    /* наша кнопка оказвыается спереди и перекрывает нашу кнопку. нам надо, чтоб она была Behind our actual button. 
+    We use ABSOLUTE POSITIONING TO DO THAT.
+    Задаем  btn after position absolute. top 0 left 0
+    absolute positioning needs to have  a reference.
+    the reference is the first element with a relative position that it can find
+    в нашем случае это был бы header но нам нужно, чтоб эффект проявлялся у кнопки
+    Таким образом мы задаем relative самой кнопке (btn link, visited)
+    И в конце нам надо указать z-index который указывает распложение элементов когда один на другом (-1 значит он поади нашей кнопки)
+    */
+    
+    &--white::after{
+        background-color: $color-white;
+    }
+    
+    &:hover::after {
+        transform: scaleX(1.4) scaleY(1.6);
+        opacity: 0;
+    }
+    
+    /*when we hover button after effect starts. Scales the element an makes it N times bigger
+    Т.к. у нас не совсем симметрично при обычно scale, сделаем его отдельно по осям X Y
+    Чтоб что-то fade away нам нужно указать opacity 0 (при hover)
+    Transition property д.б. в Initial state. а им для нас является btn::after
+    значит туда и пишем.
+    */
+    
+    &--animated {
+        animation: moveInBottom .5s ease-out .75s;
+        animation-fill-mode: backwards;
+    }
+    
+    /*75s - animation-delay
+    fill-mode backwards значит что изначально кнопка примет состояние при 0% "keyframe*
+    это нужно потому что иначе кнопка не появляется, а сразу стоит на месте - потом исчезает и выезжает */
+    
+    
+}
+
+.btn-text {
+    &:link,
+    &:visited {
+        font-size: $default-font-size;
+        color: $color-primary;
+        display: inline-block;
+        text-decoration: none;
+        border-bottom: 0.1rem solid $color-primary;
+        padding: 0.3rem;
+        transition: all .2s;
+    }
+
+    &:hover {
+        background-color: $color-primary;
+        color: $color-white;
+        box-shadow: 0rem 1rem 2rem rgba($color-black, .15);
+        transform: translateY(-2px);
+
+    }
+
+    &:active {
+        box-shadow: 0rem 0.5rem 1rem rgba($color-black, .15);
+        transform: translateY(0px);
+    }
+}

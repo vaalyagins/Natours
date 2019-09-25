@@ -1,0 +1,41 @@
+*,
+*::after,
+*::before { 
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+/*So the box-sizing property by itself is not inherited,
+but by setting the box-sizing property on each and every element on the entire page to inherit,
+it'll automatically inherit whatever we put here on border-box.
+
+Мы добавили все after и before потому что это псевдоэлементы, а * касается всех просто Элементов*/
+
+html {
+
+    //This defines what 1 rem is
+    font-size: 62.5%;
+}
+/*ROOT font-size задается в HTML
+Мы задаем его 10 px чтоб было проще
+т.е. у нас будет 1 rem = 10px
+Далее мы поделили все px на 10 и получили rem
+Но чтобы стало еще лучше, нам нужно избавиться от пикселей и здесь
+наш дефольтный размер - 16 пикселей (1.6 рем)
+So if we put 100% here, this would mean
+that the root font size would be 16 pixel
+Now, but we don't want 16 pixels here, right?
+What we want is 10 pixels,
+All we have to do is to divide what we want, which is 10:16.
+so 10 divided by 16 is 62.5%,
+
+Это нужно чтоб когда юзер приближал, все равномерно приближалось.
+
+*/
+
+body {
+    box-sizing: border-box;
+}
+
+
